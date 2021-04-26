@@ -8,17 +8,11 @@ class Agent:
     # Takes an image_path to prepare the image
     def __init__(self, image_path):
         self.image_path = image_path
-        self.actual_image_left = None
-        self.actual_image_right = None
-        self.predict_image_right = None
+        self.training_image = None # Left image
+        self.actual_image = None # Right image
+        self.test_image = None # Grayscaled right image
         self.initialize_image()
         print("Loaded {}".format(image_path))
-        return
-
-    # Saves the current prediction to a given path
-    def save(self, image_path):
-        self.predict_image_right.save(image_path)
-        print("Saved as {}".format(image_path))
         return
 
     # Convert the right half of the image to grayscale
@@ -26,10 +20,10 @@ class Agent:
         with Image.open(self.image_path) as image:
             width, height = image.size
             middle = math.ceil(width/2)
-            self.actual_image_left = image.crop( (0, 0, middle, height) )
-            self.actual_image_right = image.crop( (middle, 0, width, height) )
-            self.predict_image_right = self.actual_image_right.copy()
-            data = list(self.predict_image_right.getdata())
+            self.training_image = image.crop( (0, 0, middle, height) )
+            self.actual_image = image.crop( (middle, 0, width, height) )
+            self.test_image = self.actual_image.copy()
+            data = list(self.test_image.getdata())
         
         right_width = width - middle
         for y in range(0, height, 1):
@@ -37,16 +31,8 @@ class Agent:
                 index = (right_width * y) + x
                 grayscale = rgb_to_grayscale( data[index] )
                 data[index] = (grayscale, grayscale, grayscale)
-        self.predict_image_right.putdata(data)
+        self.test_image.putdata(data)
         return
-
-    # Get variance and gradient
-    def get_variance(self):
-        actual = numpy.array(self.actual_image_right.getdata())
-        prediction = numpy.array(self.predict_image_right.getdata())
-        gradient = prediction - actual
-        variance = gradient.var()
-        return (gradient, variance)
 
 # Converts RGB to Grayscale
 def rgb_to_grayscale(rgb_data):
@@ -58,6 +44,14 @@ def rgb_to_grayscale(rgb_data):
         ),
         255
     )
+
+# Get variance and gradient
+def get_variance(actual_image, predict_image):
+    actual_data = numpy.array(actual_image.getdata())
+    prediction_data = numpy.array(predict_image.getdata())
+    gradient = prediction_data - actual_data
+    variance = gradient.var()
+    return (gradient, variance)
 
 # Saves the images attached by the sides
 def save_all(images, image_path):
@@ -82,15 +76,15 @@ def save_all(images, image_path):
 # Example usage of Agent.py
 if __name__ == "__main__":
     agent = Agent("./image0.jpg")
-    save_all([agent.actual_image_left, agent.predict_image_right], "temp.png")
+    save_all([agent.training_image, agent.test_image], "./Output/temp.png")
 
-    data = agent.predict_image_right.getdata()
+    data = agent.test_image.getdata()
 
     # NOTE: .getpixel is slower than data[199]
     print(data[199]) # 199th pixel
-    print(agent.actual_image_right.getpixel( (199, 0) )) # Pixel at x=199, y=0
+    print(agent.actual_image.getpixel( (199, 0) )) # Pixel at x=199, y=0
     print()
     print(data[(200*399) + 5]) # (200*399) is the 1st column of the 400th row, +5 is the 6th column in that row
-    print(agent.actual_image_right.getpixel( (5, 399) )) # Pixel at x=5, y=399
+    print(agent.actual_image.getpixel( (5, 399) )) # Pixel at x=5, y=399
     print()
-    print(agent.get_variance())
+    print(get_variance(agent.actual_image, agent.test_image))
