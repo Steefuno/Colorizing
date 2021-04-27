@@ -36,7 +36,7 @@ def image_to_grayscale(image):
             grayscale = rgb_to_grayscale( data[index] )
             data[index] = (grayscale, grayscale, grayscale)
     image.putdata(data)
-    return
+    return image
 
 # Converts RGB to Grayscale
 def rgb_to_grayscale(rgb_data):
