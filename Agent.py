@@ -15,7 +15,7 @@ class Agent:
         print("Loaded {}".format(image_path))
         return
 
-    # Convert the right half of the image to grayscale
+    # Loads the image and prepares data for the agent
     def initialize_image(self):
         with Image.open(self.image_path) as image:
             width, height = image.size
@@ -23,16 +23,20 @@ class Agent:
             self.training_image = image.crop( (0, 0, middle, height) )
             self.actual_image = image.crop( (middle, 0, width, height) )
             self.test_image = self.actual_image.copy()
-            data = list(self.test_image.getdata())
-        
-        right_width = width - middle
-        for y in range(0, height, 1):
-            for x in range(0, right_width, 1):
-                index = (right_width * y) + x
-                grayscale = rgb_to_grayscale( data[index] )
-                data[index] = (grayscale, grayscale, grayscale)
-        self.test_image.putdata(data)
+            image_to_grayscale(self.test_image)
         return
+
+# Converts an image to grayscale
+def image_to_grayscale(image):
+    width, height = image.size
+    data = list(image.getdata())
+    for y in range(0, height, 1):
+        for x in range(0, width, 1):
+            index = (width * y) + x
+            grayscale = rgb_to_grayscale( data[index] )
+            data[index] = (grayscale, grayscale, grayscale)
+    image.putdata(data)
+    return
 
 # Converts RGB to Grayscale
 def rgb_to_grayscale(rgb_data):
