@@ -284,6 +284,6 @@ if __name__ == "__main__":
     agent = BasicAgent("./image1.jpg")
     agent.run()
 
-    image = Image.new("RGB", (agent.test_image.size))
+    image = Image.new("RGB", agent.test_image.size)
     image.putdata(agent.prediction)
     Agent.save_all([agent.training_image, image], "./Output/temp.png")
