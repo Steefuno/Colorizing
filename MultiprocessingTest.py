@@ -4,7 +4,7 @@ from functools import partial
 n = 4
 
 def f(a, b):
-    return a*b
+    return a**b
 
 if __name__ == '__main__':
     with Pool() as p:
