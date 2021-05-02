@@ -42,7 +42,7 @@ class BasicAgent(Agent.Agent):
                 test_image_shape=self.test_image.size,
                 training_data_colors=self.training_data_colors
             )
-            print("Predicted Pixel {} of {} at t={:.4f}".format(test_pixel_id, num_pixels, time() - start_time))
+            print("Predicted Pixel ({} of {}) at t={:.2f} seconds".format(test_pixel_id, num_pixels, time() - start_time))
 
         print("Predicted.")
         return self.prediction
@@ -281,8 +281,9 @@ def get_patch(pixel_id, image_data, image_shape):
 
 # Example usage of BasicAgent.py
 if __name__ == "__main__":
-    agent = BasicAgent("./image0.jpg")
+    agent = BasicAgent("./image1.jpg")
     agent.run()
 
-    image = Image.fromarray(agent.prediction)
-    Agent.save_all([image], image_path)
+    image = Image.new("RGB", (agent.test_image.size))
+    image.putdata(agent.prediction)
+    Agent.save_all([agent.training_image, image], "./Output/temp.png")
