@@ -8,7 +8,7 @@ import Agent
 
 from time import time
 
-nclusters = 10  # Given, number of color clusters
+nclusters = 12  # Given, number of color clusters
 change_convergence = 1  # Random small number decided for average change in cluster positions to declare convergence
 patch_width = 3  # Width and height of patch to match testing data with training data
 assert (patch_width % 2 == 1)
