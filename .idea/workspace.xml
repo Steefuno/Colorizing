@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c4d7fd1e-a736-45a6-9bb1-b0532ba75091" name="Default Changelist" comment="adjusting improved agent">
-      <change beforePath="$PROJECT_DIR$/ImprovedAgent.py" beforeDir="false" afterPath="$PROJECT_DIR$/ImprovedAgent.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Output/Improved Agent Prediction.png" beforeDir="false" afterPath="$PROJECT_DIR$/Output/Improved Agent Prediction.png" afterDir="false" />
+    <list default="true" id="c4d7fd1e-a736-45a6-9bb1-b0532ba75091" name="Default Changelist" comment="updated the report">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Report/Report.tex" beforeDir="false" afterPath="$PROJECT_DIR$/Report/Report.tex" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +163,21 @@
       <option name="project" value="LOCAL" />
       <updated>1620236942392</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="updated the report">
+      <created>1620244275614</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1620244275614</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated the report">
+      <created>1620244523895</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1620244523895</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -182,6 +195,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added improved agent and the improved agent section to the report" />
     <MESSAGE value="adjusting improved agent" />
-    <option name="LAST_COMMIT_MESSAGE" value="adjusting improved agent" />
+    <MESSAGE value="updated the report" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the report" />
   </component>
 </project>
