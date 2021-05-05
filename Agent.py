@@ -77,6 +77,34 @@ def save_all(images, image_path):
     print("Saved as {}".format(image_path))
     return
 
+# Uses L2 Norm to check the quality of the prediction compared to the actual image
+# Checks only the region predicted
+def check_prediction(prediction_data, actual_image, include_border=False):
+    width, height = actual_image.size
+    prediction_image = Image.new("RGB", (width, height))
+    prediction_image.putdata(prediction_data)
+
+    if not include_border:
+        rectangle = (
+            1,
+            1,
+            width-1,
+            height-1
+        )
+        actual_image = actual_image.copy()
+        actual_image.crop(rectangle)
+    else:
+        rectangle = (
+            0,
+            0,
+            width,
+            height
+        )
+    prediction_image.crop(rectangle)
+    
+    prediction_data = numpy.array(prediction_image.getdata(), dtype=numpy.uint8)
+    actual_data = numpy.array(actual_image.getdata(), dtype=numpy.uint8)
+
 # Example usage of Agent.py
 if __name__ == "__main__":
     agent = Agent("./image0.jpg")

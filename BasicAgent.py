@@ -133,7 +133,7 @@ class BasicAgent(Agent.Agent):
             i += 1
 
         # Convert float cluster_colors to ints
-        cluster_colors = numpy.floor(cluster_colors).astype(numpy.int16).tolist()
+        cluster_colors = numpy.floor(cluster_colors).astype(numpy.uint8).tolist()
         return cluster_colors
 
 # Find cluster for a single pixel
@@ -272,7 +272,7 @@ def get_patch(pixel_id, image_data, image_shape):
         return None
 
     # Append to patch_data row by row
-    patch_data = numpy.ndarray((0, 3), dtype=numpy.int16)
+    patch_data = numpy.ndarray((0, 3), dtype=numpy.uint8)
     for y in range(pixel_y - padding, pixel_y + padding + 1, 1):
         start = pixel_x - padding + (width * y)
         end = pixel_x + padding + 1 + (width * y)
