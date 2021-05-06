@@ -289,7 +289,7 @@ def get_patch(pixel_id, image_data, image_shape):
     return patch_data
 
 
-# Example usage of BasicAgent.py
+# Example usage of ImprovedAgent.py
 if __name__ == "__main__":
     agent = ImprovedAgent("./image1.jpg")
     agent.run()
